@@ -1,3 +1,4 @@
+"""Implement the base notifier"""
 import abc
 
 

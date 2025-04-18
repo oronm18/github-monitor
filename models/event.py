@@ -1,3 +1,4 @@
+"""Event model for the project"""
 from enum import StrEnum
 
 class EventType(StrEnum):

@@ -1,3 +1,3 @@
 import os
 
-WEBHOOK_SECRET = os.getenv('WEBHOOK_SECRET').encode()
+WEBHOOK_SECRET = os.getenv('WEBHOOK_SECRET', '').encode()

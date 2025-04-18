@@ -1,3 +1,4 @@
+"""Implement the handler and the sus behave logic."""
 import logging
 from datetime import datetime, timezone
 
@@ -28,7 +29,7 @@ def check_team(payload: dict) -> bool:
 
 
 def check_repo(payload: dict) -> bool:
-    created_at = datetime.fromisoformat(payload.get('repository', {}).get('created_at').replace("Z", "+00:00"))
+    created_at = datetime.fromisoformat(payload.get('repository', {}).get('created_at').replace('Z', '+00:00'))
     time_since_created = datetime.now(timezone.utc) - created_at
     if payload.get('action') == 'deleted' and time_since_created.total_seconds() < 600:
         return False

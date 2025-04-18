@@ -1,3 +1,4 @@
+"""Implement the log notifier"""
 import logging
 
 from notifiers.base import Notifier

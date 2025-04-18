@@ -1,3 +1,4 @@
+"""Implement the api connection with github and calling the handler."""
 from fastapi import FastAPI, Header, HTTPException, Request
 import hmac
 import hashlib
@@ -35,6 +36,7 @@ def create_app(notifiers: list):
 
         payload = await request.json()
         logging.info(f'Received {x_github_event} event with {payload=}.\n')
+
         if check_event(x_github_event, payload) is False:
             for notifier in request.app.state.notifiers:
                 notifier.notify(x_github_event, payload)
