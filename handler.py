@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 from models.event import EventType
 
@@ -28,8 +28,8 @@ def check_team(payload: dict) -> bool:
 
 
 def check_repo(payload: dict) -> bool:
-    created_at = datetime.fromisoformat(payload.get('repository', {}).get('created_at').rstrip('Z'))
-    time_since_created = datetime.now() - created_at
+    created_at = datetime.fromisoformat(payload.get('repository', {}).get('created_at').replace("Z", "+00:00"))
+    time_since_created = datetime.now(timezone.utc) - created_at
     if payload.get('action') == 'deleted' and time_since_created.total_seconds() < 600:
         return False
     return True

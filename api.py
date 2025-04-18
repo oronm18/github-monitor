@@ -36,10 +36,11 @@ def create_app(notifiers: list):
         payload = await request.json()
         logging.info(f'Received {x_github_event} event with {payload=}.\n')
         if check_event(x_github_event, payload) is False:
-            for notify in request.app.state.notifiers:
-                notify(x_github_event, payload)
+            for notifier in request.app.state.notifiers:
+                notifier.notify(x_github_event, payload)
             raise HTTPException(status_code=403, detail='Suspicious behavior detected')
 
+        logging.debug('Everything seems to be ok with this payload.\n')
         return {'status': 'ok'}
 
     return app
