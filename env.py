@@ -1,1 +1,3 @@
-WEBHOOK_SECRET = b'my-super-secret-123'
+import os
+
+WEBHOOK_SECRET = os.getenv('WEBHOOK_SECRET').encode()
